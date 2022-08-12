@@ -6,7 +6,9 @@
     <h1><a href="/article/{{ article.id }}" style="text-decoration: none; color: #212529;">{{ article.title }}</a></h1>
     <a href="/article/{{ article.id }}"><img src="{{ article.image.url }}" alt="" style="width: 450px; height: 250px; ""></a>
     <p>{{ article.shorten_text }}</p>
-    <hr>
+    {% if articles|last != article %}
+        <hr>
+    {% endif %}
     {% endfor %}
 </div>
 {% endblock %}
