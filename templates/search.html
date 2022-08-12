@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Search{% endblock %}
+{% block content %}
+<center>
+    <form action="" method="POST">
+    {% csrf_token %}
+    <input type="text" placeholder="Поиск" name="search_text" value="{% if search_text %}{{ search_text }}{% else %}{% endif %}">
+    <button type="submit">Поиск</button>
+    </form>
+</center>
+{% if articles %}
+<div class="container">
+    <h1>Было найдено: {{ articles.count }} article</h1>
+    <br>
+    {% for article in articles %}
+    <h1><a href="/article/{{ article.id }}" style="text-decoration: none; color: #212529;">{{ article.title }}</a></h1>
+    <a href="/article/{{ article.id }}"><img src="{{ article.image.url }}" alt="" style="width: 450px; height: 250px; ""></a>
+    <p>{{ article.shorten_text }}</p>
+    <hr>
+    {% endfor %}
+</div>
+{% else %}
+<center>
+    <h1>Ничего не было найдено</h1>
+</center>
+{% endif %}
+{% endblock %}

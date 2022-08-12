@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block content %}
+{% if article %}
+<div class="container">
+    <center>
+    <h1>{{ article.title }}</h1>
+    <h4>Опубликовано - {{ article.time_create|date:"M d, Y h:m" }}</h4>
+    {% if article.time_create != article.time_update %}
+    <h4>Обновлено - {{ article.time_update|date:"M d, Y h:m" }}</h4>
+    {% endif %}
+    </center>
+    <p>{{ article.text }}</p>
+    <center>
+    <img src="{{ article.image.url }}" alt="">
+    </center>
+    <br>
+    <hr>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <textarea type="text" name="comment" placeholder="Оставьте текст комментария" style="width: 40%; height: 100px;"></textarea>
+        <br>
+        <br>
+        <button type="success">Отправить коммент</button>
+    </form>
+    {% for comment in comments %}
+        <h3>Anonymous User</h3>
+        <p>{{ comment.time_create }}</p>
+        <p>{{ comment.text }}</p>
+    {% endfor %}
+</div>
+{% else %}
+<h1>{{ error }}</h1>
+{% endif %}
+{% endblock content %}
