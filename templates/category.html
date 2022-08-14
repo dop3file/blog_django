@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}{{ all_articles.0.category.name }}{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Все статьи категории <i style="color: red;">{{ all_articles.0.category.name }}</i></h1>
+    <hr>
+    <br>
+    {% for article in all_articles %}
+        <h1><a href="/article/{{ article.id }}" style="text-decoration: none; color: #212529;">{{ article.title }}</a></h1>
+        <a href="/article/{{ article.id }}"><img src="{{ article.image.url }}" alt="" style="width: 450px; height: 250px; ""></a>
+        <p>{{ article.shorten_text }}</p>
+        {% if articles|last != article %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

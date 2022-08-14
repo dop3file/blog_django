@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from core.models import Article, Comment
+from core.models import Article, Comment, Category
 from django.core.paginator import Paginator
 import core.utils as utils
 
@@ -57,3 +57,15 @@ def search_article(request):
         context['articles'] = utils.search(Article, search_text)
         context['search_text'] = search_text
     return render(request, 'search.html', context=context)
+
+
+def get_all_categorys(request):
+    context = {}
+    context['categorys'] = Category.objects.all()
+    return render(request, 'categorys.html', context=context)
+
+
+def get_category(request, name):
+    context = {}
+    context['all_articles'] = Article.objects.filter(category__name__contains=name).all()
+    return render(request, 'category.html', context=context)

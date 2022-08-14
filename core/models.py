@@ -7,6 +7,7 @@ class Article(models.Model):
     image = models.ImageField()
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
 
     def shorten_text(self):
         return ' '.join(self.text.split(' ')[0:100]) + '...'
@@ -17,3 +18,7 @@ class Comment(models.Model):
     time_create = models.DateTimeField(auto_now=True)
     article = models.ForeignKey('Article', on_delete=models.CASCADE)
 
+
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True)

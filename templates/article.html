@@ -9,6 +9,7 @@
     {% if article.time_create != article.time_update %}
     <h4>Обновлено - {{ article.time_update|date:"M d, Y h:m" }}</h4>
     {% endif %}
+    <h3>Категория - {{ article.category.name }}</h1>
     </center>
     <p>{{ article.text }}</p>
     <center>
